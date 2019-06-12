@@ -231,8 +231,9 @@ public class BookmarksActivity extends AppCompatActivity {
                     intent.putExtra("beginLogitude",departLongitudeArray[realPosition]);
                     intent.putExtra("endLatitude",destinationLatitudeArray[realPosition]);
                     intent.putExtra("endLogitude",destinationLongitudeArray[realPosition]);
-                    startActivity(intent);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     finish();
+                    startActivity(intent);
                 }
             });
         }

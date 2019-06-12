@@ -21,4 +21,6 @@
     <string name="collect_route">收藏路径</string>
     <string name="route_navigation">路线规划</string>
     <string name="route">路线</string>
+    <string name="aboutUs">关于我们</string>
+    <string name="changePwd">修改密码</string>
 </resources>

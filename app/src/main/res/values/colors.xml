@@ -9,6 +9,7 @@
     <color name="transparentWhite">#70ffffff</color>
     <!--光标灰-->
     <color name="grayLine">#707070</color>
+    <color name="backgroundcolor">#e5e5e5</color>
 
     <color name="red">#ff0000</color>
     <color name="green">#00ff00</color>

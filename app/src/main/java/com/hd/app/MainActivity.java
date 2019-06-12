@@ -3,6 +3,7 @@ package com.hd.app;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +24,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -57,6 +60,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import Tools.ActivityCollector;
 import adapter.FloorListAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 import module.Building;
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
     public static MapView mMapView = null;
     public static BaiduMap mBaiduMap;
 
+    private TextView userNumText;
+    private SharedPreferences pref;
+    private String userAccount;
     private Button routeOpen;
     private Button personList;
     private EditText searchContent;
@@ -129,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<Building> buildingList = new ArrayList<>();
 
+    private long mExitTime = System.currentTimeMillis();//mExitTime为系统时间
 
 
     @Override
@@ -136,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        ActivityCollector.addActivity(MainActivity.this);
         Intent intent = getIntent();
         user = (User) getIntent().getSerializableExtra("user_information");
         Log.d("用户信息传送",user.getAccount());
@@ -259,6 +268,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void init() {
 
+
+
+
         //获取地图控件引用
         markerInitProgress = (ProgressBar)findViewById(R.id.marker_init_progress);
         BaiduMapOptions options = new BaiduMapOptions();
@@ -269,7 +281,15 @@ public class MainActivity extends AppCompatActivity {
         personList = (Button) findViewById(R.id.person_icon);
 //        searchContent = (EditText) findViewById(R.id.search_text);
 //        search = (Button) findViewById(R.id.search_icon);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerLayout=navigationView.getHeaderView(0);
+
+        userNumText=headerLayout.findViewById(R.id.user_num);
+        pref = getSharedPreferences("user",Context.MODE_PRIVATE);
+        userAccount = pref.getString("account","");
+        userNumText.setText(userAccount);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
         mMapView = (MapView) findViewById(R.id.bmapView);
 //        myLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.COMPASS,true,);
@@ -496,10 +516,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
+                
             }
         });
 
-        navigationView.setCheckedItem(R.id.scenery_icon);
+        navigationView.setCheckedItem(R.id.suggestion_icon);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.log_off_icon:
+                    {
+                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        ActivityCollector.finishAll();
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.suggestion_icon:
+                    {
+                        Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.set_icon:
+                    {
+                        Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -864,6 +915,7 @@ public class MainActivity extends AppCompatActivity {
         mMapView.onDestroy();
         mMapView = null;
         super.onDestroy();
+        ActivityCollector.removeActivity(this);//从活动栈中删除活动
     }
 
 
@@ -908,5 +960,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {//判断用户是否连续点击两次返回按键
+        if(System.currentTimeMillis() - mExitTime < 800) {  //两次连点间隔小于0.8秒
+            ActivityCollector.finishAll();  //关闭所有活动，退出应用
+            android.os.Process.killProcess(android.os.Process.myPid());//关闭进程（彻底关闭应用）
+        }
+        else{
+            Toast.makeText(MainActivity.this,"再按一次返回键退出应用",Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();   //这里赋值最关键，别忘记
+        }
+    }
 }
