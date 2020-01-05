@@ -227,6 +227,7 @@ public class BookmarksActivity extends AppCompatActivity {
                     intent.putExtra("action","2");
                     intent.putExtra("beginName",ci.departName);
                     intent.putExtra("endName",ci.destination);
+                    intent.putExtra("mode",ci.wayOfVehicle);
                     intent.putExtra("beginLatitude",departLaitudeArray[realPosition]);
                     intent.putExtra("beginLogitude",departLongitudeArray[realPosition]);
                     intent.putExtra("endLatitude",destinationLatitudeArray[realPosition]);

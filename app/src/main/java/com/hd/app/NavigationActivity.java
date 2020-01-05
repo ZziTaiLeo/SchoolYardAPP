@@ -54,7 +54,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.RouteLine;
 import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.geocode.GeoCodeOption;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
@@ -123,7 +122,7 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
         , PoiHistoryAdapter.OnHistoryItemClickListener, BaiduMap.OnMapClickListener, OnGetRoutePlanResultListener {
 
     /**
-     * 地理编码,硬核解决骑行规划问题，辣鸡百度问题反馈
+     * 地理编码
      * @param savedInstanceState
      */
 
@@ -145,8 +144,7 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 Toast.makeText(NavigationActivity.this,"抱歉，未找到当前地理位置",Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                    bikeLatitude = geoCodeResult.getLocation().latitude;
-                    bikeLogitude= geoCodeResult.getLocation().longitude;
+                    return;
             }
         }
     }
@@ -332,8 +330,18 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
             endLatitude=intent.getDoubleExtra("latitude",0.0000000000);
             endLogitude=intent.getDoubleExtra("logitude",0.0000000000);
             Log.d("终点坐标",String.valueOf(endLatitude));
-            destination_edit.setText(intent.getStringExtra("spotName"));
+            if(intent.getStringExtra("destinationName")!=null)
+            {
+                destination_edit.setText(intent.getStringExtra("destinationName"));
+            }
+            else {
+                destination_edit.setText(intent.getStringExtra("spotName"));
+            }
 
+            isBegin = true;
+            LatLng p = new LatLng(nlocation.getLatitude(),nlocation.getLongitude());
+            ReverseGeoCodeOption options = new ReverseGeoCodeOption().location(p);
+            mCoder.reverseGeoCode(options);
             walkingRoutePlan("我的位置","景点");
             routeMap.setVisibility(View.VISIBLE);
             routeInformCard.setVisibility(View.VISIBLE);
@@ -341,24 +349,41 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
         if(intent.getStringExtra("action").equals("2"))
         {
             //从路径收藏夹打开路径规划
+
+
             actionId = intent.getStringExtra("action");
             beginLatitude = intent.getDoubleExtra("beginLatitude",0.0000000000);
             Log.d("起点纬度",String.valueOf(beginLatitude));
             beginLogitude = intent.getDoubleExtra("beginLogitude",0.0000000000);
             endLatitude = intent.getDoubleExtra("endLatitude",0.0000000000);
             endLogitude = intent.getDoubleExtra("endLogitude",0.0000000000);
+            String mode = intent.getStringExtra("mode");
             String cbegin = intent.getStringExtra("beginName");
             String cend = intent.getStringExtra("endName");
             start_place_edit.setText(cbegin);
             destination_edit.setText(cend);
-            walkingRoutePlan(cbegin,cend);
-            routeMap.setVisibility(View.VISIBLE);
-            routeInformCard.setVisibility(View.VISIBLE);
+            switch (mode)
+            {
+                case "步行":
+                {
+                    walkingRoutePlan(cbegin,cend);
+                    routeMap.setVisibility(View.VISIBLE);
+                    routeInformCard.setVisibility(View.VISIBLE);
+                    break;
+                }
+                case "骑行":
+                {
+                    bikingRoutePlan(cbegin,cend);
+                    routeMap.setVisibility(View.VISIBLE);
+                    routeInformCard.setVisibility(View.VISIBLE);
+                    break;
+                }
+                default:
+                    break;
+            }
 
         }
     }
-
-
     private void setListener() {
         openRouteCollect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -367,7 +392,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 startActivity(intent);
             }
         });
-
         returnIocn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -388,27 +412,18 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 cardShowButton.setVisibility(GONE);
             }
         });
-
         walkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                walkButton.setBackgroundResource(R.drawable.route_mode_walk_select);
-                walkButton.setTextColor(getResources().getColor(R.color.white));
-                bikeButton.setBackgroundResource(R.drawable.route_mode_bike_notselect);
-                bikeButton.setTextColor(getResources().getColor(R.color.appBlue));
+
                 walkingRoutePlan(beginLocation,endLocation);
             }
         });
-
         bikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bikeButton.setBackgroundResource(R.drawable.route_mode_bike_select);
-                bikeButton.setTextColor(getResources().getColor(R.color.white));
-                walkButton.setBackgroundResource(R.drawable.route_mode_walk_notselect);
-                walkButton.setTextColor(getResources().getColor(R.color.appBlue));
-                bikingRoutePlan(beginLocation, endLocation);
 
+                bikingRoutePlan(beginLocation, endLocation);
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -424,38 +439,31 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 }
                 if(beginLocation.equals("我的位置"))
                 {
-
                     isBegin = true;
-                    mCoder.geocode(new GeoCodeOption().city("福州").address(endLocation));
+//                    mCoder.geocode(new GeoCodeOption().city("福州").address(endLocation));
                     LatLng p = new LatLng(nlocation.getLatitude(),nlocation.getLongitude());
                     ReverseGeoCodeOption options = new ReverseGeoCodeOption().location(p);
                     mCoder.reverseGeoCode(options);
 //                    beginName = myAddressName;
 //                    myAddressName = null;
-
                 }
                 if(endLocation.equals("我的位置"))
                 {
                     isEnd=true;
-                    mCoder.geocode(new GeoCodeOption().city("福州").address(beginLocation));
+//                    mCoder.geocode(new GeoCodeOption().city("福州").address(beginLocation));
                     LatLng p = new LatLng(nlocation.getLatitude(),nlocation.getLongitude());
                     ReverseGeoCodeOption options = new ReverseGeoCodeOption().location(p);
                     mCoder.reverseGeoCode(options);
 //                    endName = myAddressName;
 //                    myAddressName = null;
-
                 }
-
-
                     routeMap.setVisibility(View.VISIBLE);
-                    walkButton.setBackgroundResource(R.drawable.route_mode_walk_select);
-                    walkButton.setTextColor(getResources().getColor(R.color.white));
-                    bikeButton.setBackgroundResource(R.drawable.route_mode_bike_notselect);
-                    bikeButton.setTextColor(getResources().getColor(R.color.appBlue));
+//                    walkButton.setBackgroundResource(R.drawable.route_mode_walk_select);
+//                    walkButton.setTextColor(getResources().getColor(R.color.white));
+//                    bikeButton.setBackgroundResource(R.drawable.route_mode_bike_notselect);
+//                    bikeButton.setTextColor(getResources().getColor(R.color.appBlue));
                     walkingRoutePlan(beginLocation, endLocation);
                     routeInformCard.setVisibility(View.VISIBLE);
-
-
             }
         });
         chooseRouteLeft.setOnClickListener(new View.OnClickListener() {
@@ -547,7 +555,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 }
                 if(isBike)
                 {
-
                     LatLng startPt = new LatLng(routeList.get(listPoint).getBeginLatitude(),routeList.get(listPoint).getBeginLogitude());
                     LatLng endPt = new LatLng(routeList.get(listPoint).getEndLatitude(),routeList.get(listPoint).getEndLogitude());
                     BikeRouteNodeInfo bikeStartNode = new BikeRouteNodeInfo();
@@ -577,12 +584,7 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 }
             }
         });
-
     }
-
-
-
-
 
 
     /**
@@ -695,12 +697,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
             }
         }
     };
-
-
-
-
-
-
 
 
 
@@ -868,6 +864,10 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
 
 
     private void walkingRoutePlan(String begin, String end) {
+        walkButton.setBackgroundResource(R.drawable.route_mode_walk_select);
+        walkButton.setTextColor(getResources().getColor(R.color.white));
+        bikeButton.setBackgroundResource(R.drawable.route_mode_bike_notselect);
+        bikeButton.setTextColor(getResources().getColor(R.color.appBlue));
         isBike = false;
         isWalk =true;
         mBaiduMap.clear();
@@ -879,7 +879,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
             LatLng pEnd = new LatLng(endLatitude,endLogitude);
             stNode = PlanNode.withLocation(pBegin);
             enNode = PlanNode.withLocation(pEnd);
-
         }
         else if(actionId!=null&&actionId.equals("2")&&isRouteCollect)
         {
@@ -899,7 +898,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
             if (end.equals("我的位置")) {
                 LatLng p = new LatLng(nlocation.getLatitude(), nlocation.getLongitude());
                 enNode = PlanNode.withLocation(p);
-
             } else {
                 enNode = PlanNode.withCityNameAndPlaceName("福州", end);
                 endName = end;
@@ -907,11 +905,14 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
         }
         mSearch.walkingSearch((new WalkingRoutePlanOption())
                 .from(stNode).to(enNode));
-
     }
 
     private void bikingRoutePlan(String begin,String end)
     {
+        bikeButton.setBackgroundResource(R.drawable.route_mode_bike_select);
+        bikeButton.setTextColor(getResources().getColor(R.color.white));
+        walkButton.setBackgroundResource(R.drawable.route_mode_walk_notselect);
+        walkButton.setTextColor(getResources().getColor(R.color.appBlue));
         isWalk = false;
         isBike =true;
         Log.d("骑行路线规划", "bikingRoutePlan: "+end);
@@ -1014,7 +1015,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
             Log.d("aaaaaab",String.valueOf(result.getRouteLines().size()) );
             if (result.getRouteLines().size() > 1) {
                 Toast.makeText(NavigationActivity.this, "找到合适步行路径" + String.valueOf(result.getRouteLines().size()) + "条", Toast.LENGTH_SHORT).show();
-
                 for (int i = 0; i < result.getRouteLines().size(); i++) {
                     route = result.getRouteLines().get(i);
                     Date dt = new Date();
@@ -1027,14 +1027,15 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                     double elo = route.getTerminal().getLocation().longitude;
                     if(beginName==null)
                     {
-                        beginName = "我的位置";
+                        beginName = start_place_edit.getText().toString();
                     }
                     if(endName==null)
                     {
-                        endName="我的位置";
+                        endName=destination_edit.getText().toString();
                     }
-
                     RouteColloctionItem routeItem = new RouteColloctionItem(userAccount,"步行",dateNowStr,beginName,endName,route.getDuration() / 60,route.getDistance(),bla,blo,ela,elo);
+                    bikeLatitude = ela;
+                    bikeLogitude = elo;
                     routeList.add(routeItem);
                     listPoint = 0;
                 }
@@ -1060,15 +1061,16 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 double blo = route.getStarting().getLocation().longitude;
                 double ela = route.getTerminal().getLocation().latitude;
                 double elo = route.getTerminal().getLocation().longitude;
+                bikeLatitude = ela;
+                bikeLogitude = elo;
                 if(beginName==null)
                 {
-                    beginName = "我的位置";
+                    beginName = start_place_edit.getText().toString();
                 }
                 if(endName==null)
                 {
-                    endName="我的位置";
+                    endName=destination_edit.getText().toString();
                 }
-
                 RouteColloctionItem routeItem = new RouteColloctionItem(userAccount,"步行",dateNowStr,beginName,endName,route.getDuration() / 60,route.getDistance(),bla,blo,ela,elo);
 
                 routeList.add(routeItem);
@@ -1146,11 +1148,11 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                     double elo = route.getTerminal().getLocation().longitude;
                     if(beginName==null)
                     {
-                        beginName = "我的位置";
+                        beginName = start_place_edit.getText().toString();
                     }
                     if(endName==null)
                     {
-                        endName="我的位置";
+                        endName=destination_edit.getText().toString();
                     }
 
                     RouteColloctionItem routeItem = new RouteColloctionItem(userAccount,"骑行",dateNowStr,beginName,endName,route.getDuration() / 60,route.getDistance(),bla,blo,ela,elo);
@@ -1180,11 +1182,11 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
                 double elo = route.getTerminal().getLocation().longitude;
                 if(beginName==null)
                 {
-                    beginName = "我的位置";
+                    beginName = start_place_edit.getText().toString();
                 }
                 if(endName==null)
                 {
-                    endName="我的位置";
+                    endName=destination_edit.getText().toString();
                 }
                 RouteColloctionItem routeItem = new RouteColloctionItem(userAccount,"骑行",dateNowStr,beginName,endName,route.getDuration() / 60,route.getDistance(),bla,blo,ela,elo);
                 routeList.add(routeItem);

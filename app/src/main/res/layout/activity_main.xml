@@ -34,109 +34,224 @@
 
 
 
-        <Button
+        <android.support.v7.widget.CardView
             android:id="@+id/route_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:background="@drawable/route_icon"
+            app:cardCornerRadius="8dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="70dp"
-            />
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                >
 
-        <Button
-            android:background="@drawable/location_icon"
-            android:id="@+id/locotion_icon"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/route_icon"
+
+                    />
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/route"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/location_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="200dp"
-            android:layout_marginLeft="15dp"
-            />
-        <LinearLayout
-            android:layout_width="40dp"
-            android:layout_height="80dp"
-            android:layout_above="@+id/locotion_icon"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="100dp"
-            android:background="@drawable/frame_style"
-            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            app:cardCornerRadius="8dp"
             >
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/location_icon" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/location_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="100dp"
+            app:cardCornerRadius="8dp"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                >
             <Button
                 android:id="@+id/icon_normal"
-                android:layout_width="match_parent"
-                android:text="常态"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/appBlue"
+                android:layout_width="25dp"
+                android:layout_gravity="center"
+                android:layout_height="25dp"
+                android:background="@drawable/normal_select"
+
                 />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="常态"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="9dp"
+                    />
+                <ImageView
+                    android:layout_marginTop="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="28dp"
+                    android:layout_height="1dp"
+                    android:background="@color/grayLine" />
             <Button
+                android:layout_marginTop="2dp"
                 android:id="@+id/icon_follow"
-                android:text="跟随"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/white"
+                android:layout_width="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/follow_notselect"
+                android:layout_height="30dp"
+
+
 
                 />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="跟随"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="9dp"
+                    />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-        </LinearLayout>
 
 
 
-
-        <Button
-            android:text="个人"
-            android:gravity="center_horizontal"
-            android:textSize="10dp"
-            android:textColor="@color/white"
-            android:id="@+id/person_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/person_icon"
+        <android.support.v7.widget.CardView
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="40dp"
             android:layout_marginRight="10dp"
-            />
+            android:layout_marginTop="100dp"
+            app:cardCornerRadius="8dp"
+            >
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="3dp"
+              >
+
+              <Button
+                  android:id="@+id/person_icon"
+                  android:layout_width="35dp"
+                  android:layout_height="35dp"
+                  android:layout_gravity="center_horizontal"
+                  android:background="@drawable/person_notselect"
+                  android:gravity="center_horizontal"
+                  android:textColor="@color/white"
+                  android:textSize="10dp" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="10dp"
+                  android:text="个人"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/black"
+                  />
+
+              <ImageView
+                  android:layout_gravity="center_horizontal"
+
+                  android:layout_width="30dp"
+                  android:layout_height="1dp"
+                  android:layout_alignParentLeft="true"
+                  android:layout_centerVertical="true"
+                  android:background="@color/grayLine" />
 
 
         <android.support.v7.widget.AppCompatCheckBox
-            android:text="@string/spot"
             android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:textSize="10dp"
             android:textColor="@color/white"
             android:id="@+id/spot_open_icon"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/person_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@drawable/spot_check"
             android:button="@null"
             android:checked="false"
-            android:alpha="0.85"
             />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="10dp"
+                  android:text="景点"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/black"
+                  />
 
+              <ImageView
+                  android:layout_gravity="center_horizontal"
+
+                  android:layout_width="30dp"
+                  android:layout_height="1dp"
+                  android:layout_alignParentLeft="true"
+                  android:layout_centerVertical="true"
+                  android:background="@color/grayLine" />
 
         <android.support.v7.widget.AppCompatCheckBox
 
-            android:text="室内图"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textSize="10dp"
             android:textColor="@color/white"
             android:id="@+id/indoor_open_icon"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/spot_open_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@drawable/indoor_check"
             android:button="@null"
             android:checked="false"
-            android:alpha="0.85"
             />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="10dp"
+                  android:text="室内图"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textColor="@color/black"
+                  />
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:id="@+id/floor_card"

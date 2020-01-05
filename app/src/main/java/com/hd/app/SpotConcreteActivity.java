@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -207,6 +208,14 @@ public class SpotConcreteActivity extends AppCompatActivity {
                         Button close = (Button)imgEntryView.findViewById(R.id.dialog_close);
 
                         dialog.show();
+
+                        Window dialogWindow = dialog.getWindow();
+                        WindowManager mWindowManager = getWindowManager();
+                        Display mDisplay = mWindowManager.getDefaultDisplay();
+                        WindowManager.LayoutParams mWindowParam = dialogWindow.getAttributes();
+                        mWindowParam.height=(int)(mDisplay.getHeight()*0.5);
+                        mWindowParam.width =(int)(mDisplay.getWidth()*0.9);
+                        dialogWindow.setAttributes(mWindowParam);
 
 // 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
 

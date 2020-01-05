@@ -8,7 +8,9 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import module.PasswordChange;
 import module.RouteColloctionItem;
+import module.Suggestion;
 import module.User;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -92,5 +94,43 @@ public class ConnectTool {
 //            return null;
 //        }
     //}
+
+    //建议
+    public String suggestion(Suggestion su)
+    {
+
+        String Url ="http://47.102.156.224/api/path";
+        try {
+            String json=g.toJson(su);
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder().url(Url).post(body).build();
+            // Request request = new Request.Builder().url(loginUrl).build();
+            Response response = client.newCall(request).execute();
+            String temp=response.body().string();
+            return temp;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+//改密码
+    public String changePwd(PasswordChange pa)
+    {
+
+        String Url ="http://47.102.156.224/api/path";
+        try {
+            String json=g.toJson(pa);
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder().url(Url).post(body).build();
+            // Request request = new Request.Builder().url(loginUrl).build();
+            Response response = client.newCall(request).execute();
+            String temp=response.body().string();
+            return temp;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

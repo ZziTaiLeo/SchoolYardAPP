@@ -286,11 +286,12 @@
                 <Button
                     android:background="@drawable/location_icon2"
                     android:id="@+id/locotion_icon2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     />
                 <LinearLayout
                     android:id="@+id/route_inform_card"
