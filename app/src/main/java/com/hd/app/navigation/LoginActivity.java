@@ -1,4 +1,4 @@
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hd.app.R;
 
 import org.json.JSONObject;
 
@@ -111,10 +113,12 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     state = 0;
 
-                    ConnectTool connectTool = new ConnectTool();
+                   ConnectTool connectTool = new ConnectTool();
                     String temp=connectTool.login(user);
                     Log.d("登录标识", temp);
+
                     JSONObject jsonObject = new JSONObject(temp);
+                         System.out.println("tmp is = "+ temp);
                     String s = jsonObject.getString("msg");
                     if(s.equals("success")){
                         state = 0;//服务器端返回成功

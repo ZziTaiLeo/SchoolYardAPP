@@ -1,4 +1,4 @@
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hd.app.R;
 
 import org.json.JSONObject;
 

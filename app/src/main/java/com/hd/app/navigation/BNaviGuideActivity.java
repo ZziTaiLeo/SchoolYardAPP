@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Baidu, Inc. All Rights Reserved.
  */
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.Manifest;
 import android.app.Activity;

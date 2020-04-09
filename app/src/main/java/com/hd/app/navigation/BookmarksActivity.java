@@ -4,7 +4,7 @@
  * 作者：恒达
  * 时间：2019/4/25 19：00
  */
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.hd.app.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

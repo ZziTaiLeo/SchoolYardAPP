@@ -1,4 +1,4 @@
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.Manifest;
 import android.content.Context;
@@ -58,6 +58,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bm.library.PhotoView;
 import com.google.gson.Gson;
+import com.hd.app.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -506,7 +507,7 @@ public class MainActivity extends AppCompatActivity {
         routeOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,NavigationActivity.class);
+                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
                 intent.putExtra("action","0");
                 startActivity(intent);
             }
@@ -556,26 +557,26 @@ public class MainActivity extends AppCompatActivity {
                 {
                     case R.id.full_concrete_icon:
                     {
-                        Intent intent = new Intent(MainActivity.this,PanoramaActivity.class);
+                        Intent intent = new Intent(MainActivity.this, PanoramaActivity.class);
                         startActivity(intent);
                         break;
                     }
                     case R.id.log_off_icon:
                     {
-                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         ActivityCollector.finishAll();
                         startActivity(intent);
                         break;
                     }
                     case R.id.suggestion_icon:
                     {
-                        Intent intent = new Intent(MainActivity.this,SuggestionActivity.class);
+                        Intent intent = new Intent(MainActivity.this, SuggestionActivity.class);
                         startActivity(intent);
                         break;
                     }
                     case R.id.set_icon:
                     {
-                        Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivity(intent);
                         break;
                     }

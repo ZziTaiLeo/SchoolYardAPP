@@ -1,4 +1,4 @@
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -88,6 +88,7 @@ import com.baidu.mapapi.walknavi.adapter.IWRoutePlanListener;
 import com.baidu.mapapi.walknavi.model.WalkRoutePlanError;
 import com.baidu.mapapi.walknavi.params.WalkNaviLaunchParam;
 import com.baidu.mapapi.walknavi.params.WalkRouteNodeInfo;
+import com.hd.app.R;
 import com.hd.app.adapter.PoiHistoryAdapter;
 import com.hd.app.adapter.PoiSuggestionAdapter;
 import com.hd.app.adapter.RecyclerViewDivider;
@@ -109,8 +110,8 @@ import connect.ConnectTool;
 import module.RouteColloctionItem;
 
 import static android.view.View.GONE;
-import static com.hd.app.MainActivity.lastX;
-import static com.hd.app.MainActivity.nlocation;
+import static com.hd.app.navigation.MainActivity.lastX;
+import static com.hd.app.navigation.MainActivity.nlocation;
 
 
 /**
@@ -388,7 +389,7 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
         openRouteCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NavigationActivity.this,BookmarksActivity.class);
+                Intent intent = new Intent(NavigationActivity.this, BookmarksActivity.class);
                 startActivity(intent);
             }
         });

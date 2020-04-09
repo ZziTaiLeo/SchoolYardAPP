@@ -1,9 +1,11 @@
-    package com.hd.app;
+    package com.hd.app.navigation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PlanOfPathActivity extends AppCompatActivity {
+import com.hd.app.R;
+
+    public class PlanOfPathActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

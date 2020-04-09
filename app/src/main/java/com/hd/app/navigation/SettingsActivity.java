@@ -1,4 +1,4 @@
-package com.hd.app;
+package com.hd.app.navigation;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.hd.app.R;
 
 public class SettingsActivity extends AppCompatActivity {
     private TextView titleText;
@@ -21,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
         changePwdOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this,ChangePasswordActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });

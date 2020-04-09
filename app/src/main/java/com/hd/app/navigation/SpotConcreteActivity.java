@@ -1,4 +1,4 @@
-package com.hd.app;
+package com.hd.app.navigation;
 
 
 import android.app.Dialog;
@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.bm.library.PhotoView;
 import com.bumptech.glide.Glide;
+import com.hd.app.R;
 import com.ocnyang.pagetransformerhelp.BannerItemBean;
 import com.ocnyang.pagetransformerhelp.BannerViewPager;
 import com.ocnyang.pagetransformerhelp.ImageLoaderInterface;
