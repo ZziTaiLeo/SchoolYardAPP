@@ -42,15 +42,21 @@ public class ConnectTool {
     public String login(User user)
     {
 
-        String loginUrl ="http://47.102.156.224/api/login";
+        String loginUrl ="http://47.95.38.37/api/login";
         Log.d("登录链接", loginUrl);
         try {
             String json=g.toJson(user);
+                Log.d("USER",json);
             RequestBody body = RequestBody.create(JSON, json);
-            Request request = new Request.Builder().url(loginUrl).post(body).build();
+            Request request = new Request.Builder()
+                    .url(loginUrl)
+                    .post(body)
+                    .addHeader("Connection", "close")
+                    .build();
            // Request request = new Request.Builder().url(loginUrl).build();
             Response response = client.newCall(request).execute();
             String temp=response.body().string();
+                  Log.d("登陆TMP",temp);
             return temp;
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,7 +69,7 @@ public class ConnectTool {
     public String routeCollectRequest(RouteColloctionItem rtIcom)
     {
 
-        String rtCollectUrl ="http://47.102.156.224/api/path";
+        String rtCollectUrl ="http://47.95.38.37/api/path";
         try {
             String json=g.toJson(rtIcom);
             RequestBody body = RequestBody.create(JSON, json);
@@ -99,7 +105,7 @@ public class ConnectTool {
     public String suggestion(Suggestion su)
     {
 
-        String Url ="http://47.102.156.224/api/path";
+        String Url ="http://47.95.38.37/api/path";
         try {
             String json=g.toJson(su);
             RequestBody body = RequestBody.create(JSON, json);
@@ -118,7 +124,7 @@ public class ConnectTool {
     public String changePwd(PasswordChange pa)
     {
 
-        String Url ="http://47.102.156.224/api/path";
+        String Url ="http://47.95.38.37/api/path";
         try {
             String json=g.toJson(pa);
             RequestBody body = RequestBody.create(JSON, json);

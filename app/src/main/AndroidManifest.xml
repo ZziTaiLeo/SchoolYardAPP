@@ -35,27 +35,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangePasswordActivity"></activity>
-        <activity android:name=".PanoramaActivity" />
-        <activity android:name=".SuggestionActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".navigation.ChangePasswordActivity" />
+        <activity android:name=".navigation.PanoramaActivity" />
+        <activity android:name=".navigation.SuggestionActivity" />
+        <activity android:name=".navigation.SettingsActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".WNaviGuideActivity" />
-        <activity android:name=".BNaviGuideActivity" />
-        <activity android:name=".NavigationActivity" />
-        <activity android:name=".SpotConcreteActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".navigation.WNaviGuideActivity" />
+        <activity android:name=".navigation.BNaviGuideActivity" />
+        <activity android:name=".navigation.NavigationActivity" />
+        <activity android:name=".navigation.SpotConcreteActivity" />
+        <activity android:name=".navigation.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".navigation.MainActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -66,8 +66,8 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".BookmarksActivity" />
-        <activity android:name=".PlanOfPathActivity" />
+        <activity android:name=".navigation.BookmarksActivity" />
+        <activity android:name=".navigation.PlanOfPathActivity" />
     </application>
 
 </manifest>

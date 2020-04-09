@@ -10,9 +10,7 @@ import java.util.HashMap;
 import static android.content.ContentValues.TAG;
 
 
-/**
- * Created by fujiayi on 2017/5/19.
- */
+
 
 public class OfflineResource {
 

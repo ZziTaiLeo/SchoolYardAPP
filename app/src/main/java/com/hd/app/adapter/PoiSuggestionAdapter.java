@@ -15,7 +15,7 @@ import com.hd.app.R;
 import java.util.List;
 
 /**
- * Created by gaolei on 17/1/18.
+ * C
  */
 
 public class PoiSuggestionAdapter extends RecyclerView.Adapter<PoiSuggestionAdapter.MyViewHolder> {

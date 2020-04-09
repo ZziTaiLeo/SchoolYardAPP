@@ -13,7 +13,7 @@ import java.util.List;
 
 import module.Floor;
 
-import static com.hd.app.MainActivity.floorImg;
+import static com.hd.app.navigation.MainActivity.floorImg;
 
 public class FloorListAdapter extends RecyclerView.Adapter<FloorListAdapter.ViewHolder> {
     private List<Floor> mFloorList;

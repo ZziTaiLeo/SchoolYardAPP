@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookmarksActivity"
+    tools:context=".navigation.BookmarksActivity"
     >
 <LinearLayout
 
@@ -13,7 +13,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <com.hd.app.TitleLayout layout="@layout/title_bar"
+    <com.hd.app.navigation.TitleLayout
+        layout="@layout/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
