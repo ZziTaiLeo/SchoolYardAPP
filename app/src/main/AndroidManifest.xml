@@ -35,6 +35,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".recommend.QuestionActivity"></activity>
+        <activity android:name=".recommend.RecomendResultActivity" />
+        <activity android:name=".classroom.ClassroomSearch" />
+        <activity android:name=".classroom.ClassroomSettingActivity" />
         <activity android:name=".navigation.ChangePasswordActivity" />
         <activity android:name=".navigation.PanoramaActivity" />
         <activity android:name=".navigation.SuggestionActivity" />

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/purecolorbg"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/question_background"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="430dp"
+        android:layout_height="280dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="130dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/card_padding"
+        android:paddingLeft="@dimen/card_padding"
+        android:paddingEnd="@dimen/card_padding"
+        android:paddingRight="@dimen/card_padding"
+        android:paddingBottom="30dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp">
+
+        <Button
+            android:id="@+id/button_yes"
+            style="@style/ButtonStyle"
+            android:layout_width="120dp"
+            android:layout_height="53dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/button_shape"
+            android:text="@string/yes"
+            android:textSize="20dp"/>
+
+        <Button
+            android:id="@+id/button_no"
+            style="@style/ButtonStyle"
+            android:layout_width="120dp"
+            android:layout_height="53dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            android:text="@string/no"
+            android:background="@drawable/button_shape"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_go"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="150dp"
+        android:textSize="18sp"
+        android:visibility="visible"
+        style="@style/ButtonStyle"
+        android:text="@string/finish"
+        android:background="@drawable/button_shape2"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -23,4 +23,7 @@
     <string name="route">路线</string>
     <string name="aboutUs">关于我们</string>
     <string name="changePwd">修改密码</string>
+    <string name="yes">是的</string>
+    <string name="no">否</string>
+    <string name="finish">我选完啦</string>
 </resources>

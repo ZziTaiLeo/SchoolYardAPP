@@ -7,6 +7,16 @@
             android:title="福大全景图"
             />
         <item
+            android:id="@+id/recommend_question_icon"
+            android:icon="@drawable/delicious_food"
+            android:title="食堂汇"
+            />
+        <item
+            android:id="@+id/classroom_inquiries"
+            android:icon="@drawable/classroom_icon"
+            android:title="教室查询"
+            />
+        <item
             android:id="@+id/suggestion_icon"
             android:icon="@drawable/suggestion_icon"
             android:title="建议"

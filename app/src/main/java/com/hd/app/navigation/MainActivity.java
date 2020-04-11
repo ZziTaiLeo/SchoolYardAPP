@@ -59,12 +59,14 @@ import com.baidu.mapapi.model.LatLng;
 import com.bm.library.PhotoView;
 import com.google.gson.Gson;
 import com.hd.app.R;
+import com.hd.app.classroom.ClassroomSettingActivity;
+import com.hd.app.recommend.QuestionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Tools.ActivityCollector;
-import adapter.FloorListAdapter;
+import com.hd.app.adapter.FloorListAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 import module.Building;
 import module.Spot;
@@ -270,8 +272,6 @@ public class MainActivity extends AppCompatActivity {
      * 初始化控件
      */
     private void init() {
-
-
 
 
         //获取地图控件引用
@@ -564,6 +564,20 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.log_off_icon:
                     {
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        ActivityCollector.finishAll();
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.recommend_question_icon:
+                    {
+                        Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                        ActivityCollector.finishAll();
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.classroom_inquiries:
+                    {
+                        Intent intent = new Intent(MainActivity.this, ClassroomSettingActivity.class);
                         ActivityCollector.finishAll();
                         startActivity(intent);
                         break;
@@ -1006,7 +1020,6 @@ public class MainActivity extends AppCompatActivity {
                 navigateTo(location);
                 return;
             }
-
         }
         private void navigateTo(BDLocation location)
         {

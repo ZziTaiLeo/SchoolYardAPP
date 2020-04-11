@@ -613,7 +613,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
 
         });
     }
-
     /**
      * 发起步行导航算路
      */
@@ -628,11 +627,10 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
             public void onRoutePlanSuccess() {
 
                 Log.d(TAG, "onRoutePlanSuccess");
-
+                Log.d(TAG,"Intent Success");
                 Intent intent = new Intent();
                 intent.setClass(NavigationActivity.this, WNaviGuideActivity.class);
                 startActivity(intent);
-
             }
 
             @Override

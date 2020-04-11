@@ -12,9 +12,6 @@
             android:text="请点击选择所需路线，在地图中绘制"
             android:textColor="#00ffff"
             android:padding="15dp"/>
-
-
-
     <ListView
             android:id="@+id/transitList"
             android:layout_width="fill_parent"

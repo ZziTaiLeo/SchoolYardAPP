@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Baidu, Inc. All Rights Reserved.
  */
-package adapter;
+package com.hd.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
