@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.content.Intent;
+
 
 import com.hd.app.R;
 
@@ -90,4 +92,5 @@ public class BaseActivity extends AppCompatActivity {
         }
         return 0;
     }
+
 }

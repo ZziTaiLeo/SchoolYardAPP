@@ -1483,11 +1483,8 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
     protected void onPause() {
         mMapView.onPause();
         super.onPause();
-
         sensorManager.unregisterListener(listener, accelerometerSensor);
         sensorManager.unregisterListener(listener, magneticFieldSensor);
-
-
     }
 
     @Override
