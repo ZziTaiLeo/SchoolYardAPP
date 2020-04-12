@@ -3,6 +3,7 @@ package com.hd.app.recommend;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
@@ -16,8 +17,10 @@ import com.google.gson.Gson;
 import com.hd.app.R;
 import com.hd.app.adapter.CardFragmentPagerAdapterQuestion;
 import com.hd.app.adapter.CardPagerAdapterQuestion;
+import com.hd.app.base.BaseActivity;
 import com.hd.app.bean.CardItem_Question;
 import com.hd.app.bean.QuestionName;
+import com.hd.app.bean.Recommend;
 import com.hd.app.util.ShadowTransformerQuestion;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends BaseActivity  implements  View.OnClickListener{
 
     private Button buttonYes;
     private Button buttonNo;
@@ -143,6 +146,7 @@ public class QuestionActivity extends AppCompatActivity {
         message.setData(bundle);
         handler.sendMessage(message); // 将Message对象发送出去
     }
+    @Override
     public void onClick(View view) {
         Map<String,String> map = new HashMap<>();
         SharedPreferences.Editor editor = getSharedPreferences("question_answer", MODE_PRIVATE).edit();
@@ -182,7 +186,8 @@ public class QuestionActivity extends AppCompatActivity {
 //                if(getDishWithOkHttp()) {
 //                    ActivityOptions oc2 = ActivityOptions.makeSceneTransitionAnimation(QuestionActivity.this);
 //                }
-
+                Intent intent = new Intent(QuestionActivity.this, RecommendResultActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

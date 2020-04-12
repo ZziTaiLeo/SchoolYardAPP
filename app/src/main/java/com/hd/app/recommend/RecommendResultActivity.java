@@ -1,10 +1,8 @@
 package com.hd.app.recommend;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +15,12 @@ import com.hd.app.adapter.CardPagerAdapterRecommend;
 import com.hd.app.base.BaseActivity;
 import com.hd.app.bean.CardItem_Recommend;
 
+import com.hd.app.navigation.NavigationActivity;
 import com.hd.app.util.ShadowTransformerRecommend;
 
-public class RecomendResultActivity extends BaseActivity implements  View.OnClickListener,
+import static com.hd.app.recommend.QuestionActivity.dpToPixels;
+
+public class RecommendResultActivity extends BaseActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
     private ViewPager mViewPager;
     private CardPagerAdapterRecommend mCardAdapterRecommend;
@@ -28,18 +29,18 @@ public class RecomendResultActivity extends BaseActivity implements  View.OnClic
     private ShadowTransformerRecommend shadowTransformerRecommend;
     private boolean mShowingFragments = false;
     /* 初始值可删 */
-    private String[] restaurantArray = new String [5];
+    private String[] restaurantArray = {"密密麻麻","一点点","卡路里","鱼粉","一米香"};
     /* 初始值可删 */
-    private String[] dishesArray = new String [5];
+    private String[] dishesArray = {"鱼粉","鸡腿","鸡翅","鸡胸","鸡屁股"};
     /* 初始值可删 */
-    private String[] canteensArray = new String [5];
+    private String[] canteensArray = {"紫荆","景园","玫瑰","玫瑰","玫瑰"};
     /* 初始值可删 */
     private String[] dishNumArray = {"dish0","dish1", "dish2", "dish3", "dish4", "dish5", "dish6", "dish7", "dish8", "dish9", "dish10"};
     /* 初始值可删 */
-    private String[] dishId = new String [5];
+    private String[] dishId = {"1","2","3","4","5"};
     /**
      *  初始值可删 */
-    private String[] restaurantId = new String [5];
+    private String[] restaurantId = {"1","2","3","4","5"};
     private String [] pictureArray = new String [5];
     private int intDisuhNumber;
     private String demoDishes;
@@ -65,15 +66,15 @@ public class RecomendResultActivity extends BaseActivity implements  View.OnClic
         /**
          读取文件
          */
-        SharedPreferences userMessage = getSharedPreferences("user", MODE_PRIVATE);
-        token = userMessage.getString("token", "");
-        userId = userMessage.getString("id", "");
+       //SharedPreferences userMessage = getSharedPreferences("user", MODE_PRIVATE);
+        //token = userMessage.getString("token", "");
+       // userId = userMessage.getString("id", "");
         //SharedPreferences resultMessage = getSharedPreferences("result", MODE_PRIVATE);
-        Intent getIntent =getIntent();
+       // Intent getIntent =getIntent();
         /**
          *文垚给的信息;
          */
-        for (int i = 0; i < intDisuhNumber; i++) {
+        for (int i = 0; i < 5; i++) {
             String number = Integer.toString(i + 1);
             mCardAdapterRecommend.addCardItem(new CardItem_Recommend(setDemoRestaurant(restaurantArray[i], canteensArray[i]), setDemoDishes(dishesArray[i]), number));
         }
@@ -99,28 +100,28 @@ public class RecomendResultActivity extends BaseActivity implements  View.OnClic
                 /**
                  * 需要更改活动名
                  */
-                Intent intent = new Intent(RecomendResultActivity.this, StoreLocationActivity.class);
-                intent.putExtra("idRest",restaurantId[i]);
-                intent.putExtra("canteenid",pictureArray[i]);
+                Intent intent = new Intent(RecommendResultActivity.this, NavigationActivity.class);
+               // intent.putExtra("idRest",restaurantId[i]);
+             //   intent.putExtra("canteenid",pictureArray[i]);
                 startActivity(intent);
                 //Log.d("第几页啊:", item);
                 /** 接口发出**/
               //  postRequest(i);
                 switch (httpCode) {
                     case 400: {
-                        Toast.makeText(RecomendResultActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecommendResultActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case 401: {
-                        Toast.makeText(RecomendResultActivity.this, "用户信息错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecommendResultActivity.this, "用户信息错误", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case 402: {
-                        Toast.makeText(RecomendResultActivity.this, "登录超时，请重新登陆", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecommendResultActivity.this, "登录超时，请重新登陆", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     case 403: {
-                        Toast.makeText(RecomendResultActivity.this, "评价插入失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RecommendResultActivity.this, "评价插入失败", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     default:
@@ -132,7 +133,7 @@ public class RecomendResultActivity extends BaseActivity implements  View.OnClic
             }
             case R.id.next_restaurant: {
 
-                int number = intDisuhNumber;
+                int number =5;
                 Log.d("NUMBER",Integer.toString(intDisuhNumber));
                 int currentItem = mViewPager.getCurrentItem();
                 currentItem = currentItem + 1;
@@ -145,18 +146,16 @@ public class RecomendResultActivity extends BaseActivity implements  View.OnClic
             default:
                 break;
         }
-        public static float dpToPixels(int dp, Context context) {
-            return dp * (context.getResources().getDisplayMetrics().density);
-        }
 
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            mCardShadowTransformerRecommend.enableScaling(b);
-            shadowTransformerRecommend.enableScaling(b);
-        }
-        @Override
-        public int hashCode(){
-            return super.hashCode();
-        }
+
+
+
         /** parse + post 请求 这里预留，建议用新回调函数 **/
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean b) {
+        mCardShadowTransformerRecommend.enableScaling(b);
+        shadowTransformerRecommend.enableScaling(b);
     }
 }

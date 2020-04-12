@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recommend.RecomendResultActivity">
+    android:background="@drawable/purecolorbg"
+    android:fitsSystemWindows="true">
 
-</android.support.constraint.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/take_me_go"
+        style="@style/ButtonStyle"
+        android:layout_width="120dp"
+        android:layout_height="63dp"
+        android:layout_gravity="start"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="420dp"
+        android:text="带我走"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:background="@drawable/button_shape"/>
+
+    <Button
+        android:id="@+id/next_restaurant"
+        style="@style/ButtonStyle"
+        android:layout_width="120dp"
+        android:layout_height="63dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="420dp"
+        android:layout_marginRight="50dp"
+        android:text="换一家"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:background="@drawable/button_shape"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="120dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="1dp"
+        android:paddingLeft="1dp"
+        android:paddingEnd="1dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="30dp"
+
+        />
+
+</android.support.design.widget.CoordinatorLayout>
