@@ -4,7 +4,6 @@
 package com.hd.app.navigation;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -13,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BNaviGuideActivity extends Activity {
+public class BNaviGuideActivity extends AppCompatActivity {
 
 
     // ================== 初始化参数设置开始 ==========================

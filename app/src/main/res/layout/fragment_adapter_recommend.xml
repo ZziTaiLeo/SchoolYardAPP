@@ -47,7 +47,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="-5dp"
-            android:src="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/ic_launcher_background" />
 
     </FrameLayout>
 

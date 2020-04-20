@@ -1,7 +1,6 @@
 package com.hd.app.util;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -14,6 +13,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -25,8 +25,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import com.hd.app.custom.SelectDialog;
+
 import com.hd.app.R;
+import com.hd.app.custom.SelectDialog;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -38,8 +39,8 @@ import java.util.List;
 public class Utils {
     private static PowerManager.WakeLock mWakeLock;
     public static InputMethodManager imm;
-    Activity activity;
-    public Utils(Activity activity){
+    AppCompatActivity activity;
+    public Utils(AppCompatActivity activity){
         this.activity=activity;
         if(imm==null)
         {

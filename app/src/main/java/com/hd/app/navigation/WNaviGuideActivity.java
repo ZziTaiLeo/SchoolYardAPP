@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -148,7 +149,8 @@ public class WNaviGuideActivity extends Activity {
             }
         });
 
-        boolean startResult = mNaviHelper.startWalkNavi(WNaviGuideActivity.this);
+        boolean startResult =true;
+                startResult=mNaviHelper.startWalkNavi(WNaviGuideActivity.this);
         Log.e(TAG, "startWalkNavi result : " + startResult);
 
         mNaviHelper.setRouteGuidanceListener(this, new IWRouteGuidanceListener() {

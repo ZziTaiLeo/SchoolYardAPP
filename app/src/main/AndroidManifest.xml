@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hd.app">
-
+    package="com.hd.app" >
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -34,8 +33,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".recommend.QuestionActivity"></activity>
+        android:theme="@style/AppTheme" >
+
+        <activity android:name=".recommend.QuestionActivity" />
         <activity android:name=".recommend.RecommendResultActivity" />
         <activity android:name=".classroom.ClassroomSearch" />
         <activity android:name=".classroom.ClassroomSettingActivity" />
@@ -52,7 +52,7 @@
         <activity android:name=".navigation.BNaviGuideActivity" />
         <activity android:name=".navigation.NavigationActivity" />
         <activity android:name=".navigation.SpotConcreteActivity" />
-        <activity android:name=".navigation.LoginActivity">
+        <activity android:name=".navigation.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

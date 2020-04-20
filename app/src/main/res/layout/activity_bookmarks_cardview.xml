@@ -28,7 +28,7 @@
             android:layout_gravity="top|end"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="-5dp"
-            android:src="@drawable/ic_bookmark_24dp" />
+            app:srcCompat="@drawable/ic_bookmark_24dp" />
         <TextView
             android:id="@+id/tv_vehicle"
             android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
             android:layout_gravity="top|end"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/depart"
+            app:srcCompat="@drawable/depart"
             android:layout_below="@+id/yellow_image"/>
         <ImageView
             android:id="@+id/iv_destination"
@@ -129,7 +129,7 @@
             android:layout_height="40dp"
             android:layout_gravity="top|end"
             android:layout_marginTop="10dp"
-            android:src="@drawable/desitination"
+            app:srcCompat="@drawable/desitination"
             android:layout_marginEnd="8dp"
             android:layout_below="@+id/iv_depart"/>
 

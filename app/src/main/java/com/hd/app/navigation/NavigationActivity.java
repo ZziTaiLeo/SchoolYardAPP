@@ -1,6 +1,5 @@
 package com.hd.app.navigation;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -321,7 +321,6 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
         mCoder.setOnGetGeoCodeResultListener(this);
         getSensorManager();
         initPoiListener();
-
         setListener();
 
         Intent intent = getIntent();
@@ -1116,7 +1115,7 @@ public class NavigationActivity extends BaseActivity implements OnGetGeoCoderRes
         if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
             // 起终点或途经点地址有岐义，通过以下接口获取建议查询信息
             // result.getSuggestAddrInfo()
-            AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
+            android.support.v7.app.AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this);
             builder.setTitle("提示");
             builder.setMessage("检索地址存在歧义");
             builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
