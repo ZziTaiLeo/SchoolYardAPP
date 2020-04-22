@@ -67,6 +67,7 @@ import java.util.List;
 
 import Tools.ActivityCollector;
 import com.hd.app.adapter.FloorListAdapter;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import module.Building;
 import module.Spot;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> permissionList = new ArrayList<>();//申请的静态权限表
 
     public static double lastX = 0.0;
-    private double mCurrentLantitude;
+    private double mCurrentLatitude;
     private double mCurrentLongitude;
     private MyLocationConfiguration.LocationMode mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
     /**
@@ -138,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Marker> indoorMarkerList = new ArrayList<>();
 
     private MyLocationConfiguration myLocationConfiguration;
-
     List<Building> buildingList = new ArrayList<>();
 
     private long mExitTime = System.currentTimeMillis();//mExitTime为系统时间
@@ -308,13 +308,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         initBuildingList();
-
-
-
-//        PhotoView ph = (PhotoView)findViewById(R.id.floor_img);
-//        ph.enable();
-//        ph.setImageResource(R.drawable.library_f1);
-
 
     }
 
@@ -570,11 +563,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.recommend_question_icon:
                     {
+
                         Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                        intent.putExtra("mCurrentLatitude", mCurrentLatitude);
+                        intent.putExtra("mCurrentLongitude:", mCurrentLongitude);
+                        Log.d("MainActivity", "mCurrentLantitude:"+ mCurrentLatitude +","+"mCurrentLongitude"+mCurrentLongitude);
                         ActivityCollector.finishAll();
                         startActivity(intent);
                         break;
                     }
+//                    case R.id.start_running:
+////                    {
+////                        Intent intent = new Intent(MainActivity.this, TracingActivity.class);
+////                        ActivityCollector.finishAll();
+////                        startActivity(intent);
+////                        break;
+////                    }
                     case R.id.classroom_inquiries:
                     {
                         Intent intent = new Intent(MainActivity.this, ClassroomSettingActivity.class);
@@ -926,7 +930,7 @@ public class MainActivity extends AppCompatActivity {
                 MyLocationData locData = new MyLocationData.Builder()
                         .accuracy(mCurrentAccracy)
                         // 此处设置开发者获取到的方向信息，顺时针0-360
-                        .direction( mCurrentDirection ).latitude(mCurrentLantitude)
+                        .direction( mCurrentDirection ).latitude(mCurrentLatitude)
                         .longitude(mCurrentLongitude).build();
 
                 mBaiduMap.setMyLocationData(locData);
@@ -1013,7 +1017,7 @@ public class MainActivity extends AppCompatActivity {
             }
             //mapView 销毁后不在处理新接收的位置
             mCurrentAccracy = location.getRadius();
-            mCurrentLantitude = location.getLatitude();
+            mCurrentLatitude = location.getLatitude();
             mCurrentLongitude = location.getLongitude();
             nlocation = location;
             if (location.getLocType()==BDLocation.TypeGpsLocation||location.getLocType()==BDLocation.TypeNetWorkLocation){

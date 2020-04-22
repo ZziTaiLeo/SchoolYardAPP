@@ -1,15 +1,13 @@
 package com.hd.app.recommend;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,31 +17,39 @@ import com.hd.app.adapter.CardFragmentPagerAdapterQuestion;
 import com.hd.app.adapter.CardPagerAdapterQuestion;
 import com.hd.app.base.BaseActivity;
 import com.hd.app.bean.CardItem_Question;
-import com.hd.app.bean.QuestionName;
-import com.hd.app.bean.Recommend;
+import com.hd.app.bean.getDishBean;
 import com.hd.app.util.ShadowTransformerQuestion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
-public class QuestionActivity extends BaseActivity  implements  View.OnClickListener{
+import apiTools.callBackAPI;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
+public class QuestionActivity extends BaseActivity implements View.OnClickListener {
+    private ArrayList<String> mInitQuestion = new ArrayList<>();
+    private ArrayList<String> restQuestion = new ArrayList<>();
+    private Map<String, Object> map = new HashMap<>();
     private Button buttonYes;
     private Button buttonNo;
+    private String TAG = "QuestionActivity";
     private Button buttonGo;
     private ViewPager mViewPager;
-   // private String url = "http://193.112.6.8/question_request";
-    private int http_code;
+    // private String url = "http://193.112.6.8/question_request";
     public static final int UPDATE_TEXT = 1;
     private String string;
-    private List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-    private String result;
     private CardPagerAdapterQuestion mCardAdapterQuestion;
     private ShadowTransformerQuestion mCardShadowTransformerQuestion;
     private CardFragmentPagerAdapterQuestion mFragmentCardAdapterQuestion;
     private ShadowTransformerQuestion mFragmentCardShadowTransformer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +58,23 @@ public class QuestionActivity extends BaseActivity  implements  View.OnClickList
         buttonYes = findViewById(R.id.button_yes);
         buttonNo = findViewById(R.id.button_no);
         buttonGo = findViewById(R.id.btn_go);
-
         buttonYes.setOnClickListener(this::onClick);
         buttonNo.setOnClickListener(this::onClick);
         buttonGo.setOnClickListener(this::onClick);
-
+        /**
+         * 设置7个问题，取三个问题
+         */
+        initQuestion();
+        /**
+         * 这里收一个经纬度
+         */
         buttonGo.setVisibility(View.INVISIBLE);
         /** 这里来一个发送请求,手写数据*/
+        /*
+         卡片设置问题
+         */
         questionList();
+
         mCardAdapterQuestion = new CardPagerAdapterQuestion();
         mFragmentCardAdapterQuestion = new CardFragmentPagerAdapterQuestion(getSupportFragmentManager(),
                 dpToPixels(2, this));
@@ -78,7 +93,7 @@ public class QuestionActivity extends BaseActivity  implements  View.OnClickList
 
             @Override
             public void onPageSelected(int i) {
-                if(list.size() == 3) {
+                if (map.size() == 3) {
                     buttonGo.setVisibility(View.VISIBLE);
                 } else {
                     buttonGo.setVisibility(View.INVISIBLE);
@@ -91,11 +106,13 @@ public class QuestionActivity extends BaseActivity  implements  View.OnClickList
             }
         });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
     }
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -116,93 +133,92 @@ public class QuestionActivity extends BaseActivity  implements  View.OnClickList
             }
         }
     };
-    /** 写一个post函数
-     *
+
+    /**
+     * 写一个post函数
      ***/
 
 
-
-
-    //解析回调函数，并且展示
-    private void showResponse(final  String response) {
-        Gson gson = new Gson();
-        QuestionName data = gson.fromJson(response, QuestionName.class);
-        //提取问题ID和问题内容
-        String question_id_list = data.getQuestion_id_list();
-        String content1 = data.getContent1();
-        String content2 = data.getContent2();
-        String content3 = data.getContent3();
-
-        SharedPreferences.Editor editor = getSharedPreferences("question_answer", MODE_PRIVATE).edit();
-        editor.putString("idQuestions", question_id_list);
-        editor.apply();
-
-        Message message = new Message();
-        message.what = UPDATE_TEXT;
-        Bundle bundle = new Bundle();
-        bundle.putString("content1", content1);
-        bundle.putString("content2", content2);
-        bundle.putString("content3", content3);
-        message.setData(bundle);
-        handler.sendMessage(message); // 将Message对象发送出去
-    }
+//    //解析回调函数，并且展示
+//    private void showResponse(final  String response) {
+//        Gson gson = new Gson();
+//        QuestionName data = gson.fromJson(response, QuestionName.class);
+//        //提取问题ID和问题内容
+//        String question_id_list = data.getQuestion_id_list();
+//        String content1 = data.getContent1();
+//        String content2 = data.getContent2();
+//        String content3 = data.getContent3();
+//
+//        SharedPreferences.Editor editor = getSharedPreferences("question_answer", MODE_PRIVATE).edit();
+//        editor.putString("idQuestions", question_id_list);
+//        editor.apply();
+//
+//        Message message = new Message();
+//        message.what = UPDATE_TEXT;
+//        Bundle bundle = new Bundle();
+//        bundle.putString("content1", content1);
+//        bundle.putString("content2", content2);
+//        bundle.putString("content3", content3);
+//        message.setData(bundle);
+//        handler.sendMessage(message); // 将Message对象发送出去
+//    }
     @Override
     public void onClick(View view) {
-        Map<String,String> map = new HashMap<>();
-        SharedPreferences.Editor editor = getSharedPreferences("question_answer", MODE_PRIVATE).edit();
-        editor.putString("ans", list.toString());
-        editor.apply();
         switch (view.getId()) {
-            case R.id.button_yes:
-                map = new HashMap<>();
-                map.put("ans", "y");
-                if(list.size() < 3) {
-                    list.add(map);
-                } else {
-                    list.set(mViewPager.getCurrentItem(), map);
+            case R.id.button_yes:{
+
+                if (map.size() < 3) {
+                    if (!map.containsKey(restQuestion.get(mViewPager.getCurrentItem()))) {
+                        map.put(restQuestion.get(mViewPager.getCurrentItem()), 1);
+                    }
+
                 }
-                if (mViewPager.getCurrentItem() == 2) {
+                if (mViewPager.getCurrentItem() == 2 && map.size() == 3) {
                     buttonGo.setVisibility(View.VISIBLE);
                     buttonYes.setVisibility(View.INVISIBLE);
                     buttonNo.setVisibility(View.INVISIBLE);
                 }
                 break;
-            case R.id.button_no:
-                map = new HashMap<>();
-                map.put("ans", "n");
-                if(list.size() < 3) {
-                    list.add(map);
-                } else {
-                    list.set(mViewPager.getCurrentItem(), map);
+            }
+
+            case R.id.button_no:{
+                map.put(restQuestion.get(mViewPager.getCurrentItem()), 0);
+                if (map.size() < 3) {
+                    if (!map.containsKey(restQuestion.get(mViewPager.getCurrentItem()))) {
+                        map.put(restQuestion.get(mViewPager.getCurrentItem()), 0);
+                    }
+
                 }
-                if (mViewPager.getCurrentItem() == 2) {
+                if (mViewPager.getCurrentItem() == 2 && map.size() == 3) {
                     buttonGo.setVisibility(View.VISIBLE);
                     buttonYes.setVisibility(View.INVISIBLE);
                     buttonNo.setVisibility(View.INVISIBLE);
                 }
                 break;
+            }
+
             case R.id.btn_go:
                 // UPDATE: 2020/4/11 这里添加注释
 //                if(getDishWithOkHttp()) {
 //                    ActivityOptions oc2 = ActivityOptions.makeSceneTransitionAnimation(QuestionActivity.this);
 //                }
-                Intent intent = new Intent(QuestionActivity.this, RecommendResultActivity.class);
-                startActivity(intent);
+                postWithParamsQestion();
                 break;
             default:
                 break;
         }
-        if(mViewPager.getCurrentItem() < 2) {
+        if (mViewPager.getCurrentItem() < 2) {
             mViewPager.arrowScroll(2);
         }
     }
+
     /**
      * 写一个get函数  如果用retrofit应该就不用了吧;本地手写数据
      */
-    private void questionList(){
-        String content1 = "spicy";
-        String content2 ="seafood";
-        String content3 ="oil";
+    private void questionList() {
+        String content1 = transformToChinese(restQuestion.get(0));
+        String content2 = transformToChinese(restQuestion.get(1));
+        String content3 = transformToChinese(restQuestion.get(2));
         Message message = new Message();
         message.what = UPDATE_TEXT;
         Bundle bundle = new Bundle();
@@ -218,6 +234,101 @@ public class QuestionActivity extends BaseActivity  implements  View.OnClickList
         return dp * (context.getResources().getDisplayMetrics().density);
     }
 
+    public void initQuestion() {
+        mInitQuestion.add("spicy");
+        mInitQuestion.add("oil");
+        mInitQuestion.add("seafood");
+        mInitQuestion.add("flour");
+        mInitQuestion.add("balance");
+        mInitQuestion.add("rice");
+        mInitQuestion.add("noodles");
+        Random random = new Random();
+        int n = 3;
+        int i = 0;
+        int myRand = 0;
+        /*
+        List中存了三个随机的问题
+         */
+        while (i < 3) {
+
+            if(restQuestion.contains("rice")){
+                mInitQuestion.remove("noodles");
+                mInitQuestion.remove("flour");
+            }
+            if(restQuestion.contains("noodles")){
+                mInitQuestion.remove("flour");
+                mInitQuestion.remove("rice");
+
+            }
+            if(restQuestion.contains("flour")){
+                mInitQuestion.remove("rice");
+                mInitQuestion.remove("noodles");
+            }
+            myRand = random.nextInt(mInitQuestion.size());
+            restQuestion.add(mInitQuestion.get(myRand));
+            mInitQuestion.remove(myRand);
+            i++;
+        }
+
+    }
+
+    public String transformToChinese(String content) {
+        switch (content) {
+            case "spicy":
+                return "来点辣?";
+            case "oil":
+                return "浓油赤酱?";
+            case "seafood":
+                return "加点海味鲜香?";
+            case "flour":
+                return "要不米粉吧？";
+            case "rice":
+                return "要米饭不?";
+            case "noodles":
+                return "吃面?";
+            case "balance":
+                return "饮食均衡?";
+            default:
+                break;
+        }
+        return null;
+    }
 
 
+    /**
+     * 请求API
+     */
+    public void postWithParamsQestion() {
+        map.put("longitude", getIntent().getDoubleExtra("mCurrentLongitude", 26.059628));
+        map.put("latitude", getIntent().getDoubleExtra("mCurrentLatitude", 119.196502));
+        for (Map.Entry<String,Object>entry :map.entrySet()) {
+            System.out.println("key="+entry.getKey()+ " value = "+entry.getValue());
+        }
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl("http://47.95.38.37:8088/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        callBackAPI mAPI = retrofit.create(callBackAPI.class);
+        Call<getDishBean> task = mAPI.PostWithParamsDishes(map);
+        task.enqueue(new Callback<getDishBean>() {
+            @Override
+            public void onResponse(Call<getDishBean> call, Response<getDishBean> response) {
+                Log.d(TAG,"ResopseBody_:"+"Success");
+                Log.d(TAG,"ResopseBody_:"+response.body().toString());
+                getDishBean mGetDishBean = response.body();
+                Intent mIntent =new Intent(QuestionActivity.this,RecommendResultActivity.class);
+                mIntent.putExtra("DishBeanJson", new Gson().toJson(mGetDishBean));
+                mIntent.putExtra("dishNum", mGetDishBean.getDishNum());
+                Log.d(TAG, "dishnuM  : " + mGetDishBean.getDishNum());
+                startActivity(mIntent);
+            }
+
+            @Override
+            public void onFailure(Call<getDishBean> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
