@@ -45,6 +45,7 @@
     <color name="color_989898">#989898</color>
     <color name="color_ededed">#ededed</color>
     <color name="color_858585">#858585</color>
+    <color name="default_color">#00c1fc</color>
     <color name="color_cc858585">#cc858585</color>
     <color name="transparent">#00000000</color>
     <color name="color_e0e0e0">#e0e0e0</color>
@@ -61,4 +62,7 @@
     <color name="deepBlue1">#607B8B</color>
     <color name="routeBackGray">#aaaaaa</color>
     <color name="light_blue">#97cbff</color>
+    <color name="text_ture_color">#ffffff</color>
+    <color name="text_false_color">#ffffff</color>
+    <color name="home_line">#ffffff</color>
 </resources>

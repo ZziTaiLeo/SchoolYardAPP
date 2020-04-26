@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hd.app.R;
@@ -20,9 +21,9 @@ import com.hd.app.bean.CardItem_Question;
 import com.hd.app.bean.getDishBean;
 import com.hd.app.util.ShadowTransformerQuestion;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -198,10 +199,6 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
             }
 
             case R.id.btn_go:
-                // UPDATE: 2020/4/11 这里添加注释
-//                if(getDishWithOkHttp()) {
-//                    ActivityOptions oc2 = ActivityOptions.makeSceneTransitionAnimation(QuestionActivity.this);
-//                }
                 postWithParamsQestion();
                 break;
             default:
@@ -310,23 +307,29 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         callBackAPI mAPI = retrofit.create(callBackAPI.class);
-        Call<getDishBean> task = mAPI.PostWithParamsDishes(map);
+        Call<getDishBean> task = mAPI.postWithParamsDishes(map);
         task.enqueue(new Callback<getDishBean>() {
             @Override
             public void onResponse(Call<getDishBean> call, Response<getDishBean> response) {
-                Log.d(TAG,"ResopseBody_:"+"Success");
-                Log.d(TAG,"ResopseBody_:"+response.body().toString());
-                getDishBean mGetDishBean = response.body();
-                Intent mIntent =new Intent(QuestionActivity.this,RecommendResultActivity.class);
-                mIntent.putExtra("DishBeanJson", new Gson().toJson(mGetDishBean));
-                mIntent.putExtra("dishNum", mGetDishBean.getDishNum());
-                Log.d(TAG, "dishnuM  : " + mGetDishBean.getDishNum());
-                startActivity(mIntent);
+               if(response.code()== HttpURLConnection.HTTP_OK){
+                   try {
+                       Log.d(TAG,"ResopseBody_:"+"Success");
+                       Log.d(TAG,"ResopseBody_:"+response.body().toString());
+                       getDishBean mGetDishBean = response.body();
+                       Intent mIntent =new Intent(QuestionActivity.this,RecommendResultActivity.class);
+                       mIntent.putExtra("DishBeanJson", new Gson().toJson(mGetDishBean));
+                       mIntent.putExtra("dishNum", mGetDishBean.getDishNum());
+                       Log.d(TAG, "dishnuM  : " + mGetDishBean.getDishNum());
+                       startActivity(mIntent);
+                   } catch (Exception e) {
+                       e.printStackTrace();
+                   }
+               }
             }
 
             @Override
             public void onFailure(Call<getDishBean> call, Throwable t) {
-
+                Toast.makeText(QuestionActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
             }
         });
 

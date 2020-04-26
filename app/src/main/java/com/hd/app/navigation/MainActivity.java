@@ -59,7 +59,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.bm.library.PhotoView;
 import com.google.gson.Gson;
 import com.hd.app.R;
-import com.hd.app.classroom.ClassroomSettingActivity;
+import com.hd.app.classroom.ClassRoomActivity;
 import com.hd.app.recommend.QuestionActivity;
 
 import java.util.ArrayList;
@@ -581,7 +581,7 @@ public class MainActivity extends AppCompatActivity {
 ////                    }
                     case R.id.classroom_inquiries:
                     {
-                        Intent intent = new Intent(MainActivity.this, ClassroomSettingActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ClassRoomActivity.class);
                         ActivityCollector.finishAll();
                         startActivity(intent);
                         break;

@@ -1,5 +1,6 @@
 package apiTools;
 
+import com.hd.app.bean.ResultRoom;
 import com.hd.app.bean.floorBody;
 import com.hd.app.bean.getDishBean;
 
@@ -11,8 +12,9 @@ import retrofit2.http.QueryMap;
 
 public interface callBackAPI {
     @POST("dishes/getDishes")
-    Call<getDishBean> PostWithParamsDishes(@QueryMap Map<String,Object> params);
+    Call<getDishBean> postWithParamsDishes(@QueryMap Map<String,Object> params);
+
 
     @POST("coursetable/getcoursetable")
-    Call<floorBody>  PostWithParamsFloors(@QueryMap Map<String,Object> params);
+    Call<ResultRoom> postWithParamsFloors(@QueryMap Map<String,Object> params);
 }

@@ -17,10 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".classroom.ClassRoomActivity"/>
         <activity android:name=".recommend.QuestionActivity" />
         <activity android:name=".recommend.RecommendResultActivity" />
-        <activity android:name=".classroom.ClassroomSearch" />
-        <activity android:name=".classroom.ClassroomSettingActivity" />
         <activity android:name=".navigation.ChangePasswordActivity" />
         <activity android:name=".navigation.PanoramaActivity" />
         <activity android:name=".navigation.SuggestionActivity" />
