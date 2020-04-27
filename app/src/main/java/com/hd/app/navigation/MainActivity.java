@@ -222,52 +222,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    private void requestAuthority()
-//    {
-//        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
-//            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);//申请手机定位权限
-//        }
-//        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_PHONE_STATE)!= PackageManager.PERMISSION_GRANTED) {
-//            permissionList.add(Manifest.permission.READ_PHONE_STATE);//读取系统信息，包含系统版本等信息，用作统计
-//        }
-//        if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-//            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);//读写内存
-//        }
-//        if(!permissionList.isEmpty())
-//        {
-//            String [] permissions = permissionList.toArray(new String[permissionList.size()]);
-//            ActivityCompat.requestPermissions(MainActivity.this,permissions,1);
-//        }
-//    }
-//    //权限申请回调
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,String [] permissions,int[]grantResults)
-//    {
-//        switch (requestCode)
-//        {
-//            case 1: {
-//                if (grantResults.length > 0) {
-//                    for (int result : grantResults) {
-//                        if (result != PackageManager.PERMISSION_GRANTED) {
-//                            Toast.makeText(this, "必须要同意以上所有权限才能正常使用app", Toast.LENGTH_SHORT).show();
-//                            finish();
-//                            return;
-//                        }
-//
-//                    }
-//                }
-//                else{
-//                    Toast.makeText(this,"未知错误",Toast.LENGTH_SHORT).show();
-//                    finish();
-//                }
-//                break;
-//            }
-//                default:
-//        }
-//
-//    }
-//
-
     /**
      * 初始化控件
      */
