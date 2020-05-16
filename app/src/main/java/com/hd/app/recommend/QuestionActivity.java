@@ -319,7 +319,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
                        Intent mIntent =new Intent(QuestionActivity.this,RecommendResultActivity.class);
                        mIntent.putExtra("DishBeanJson", new Gson().toJson(mGetDishBean));
                        mIntent.putExtra("dishNum", mGetDishBean.getDishNum());
-                       Log.d(TAG, "dishnuM  : " + mGetDishBean.getDishNum());
+                       Log.d(TAG, "dishNum  : " + mGetDishBean.getDishNum());
                        startActivity(mIntent);
                    } catch (Exception e) {
                        e.printStackTrace();
