@@ -34,11 +34,11 @@ public class RecommendResultActivity extends BaseActivity implements View.OnClic
     private getDishBean mDishBean =new getDishBean();
     private boolean mShowingFragments = false;
     /* 初始值可删 */
-    private String[] restaurantArray = {"密密麻麻","一点点","卡路里","鱼粉","一米香"};
+    private String[] restaurantArray = {"蒸百味","咖哩饭","燃烧卡路里","鱼粉","一米香"};
     /* 初始值可删 */
-    private String[] dishesArray = {"鱼粉","鸡腿","鸡翅","鸡胸","鸡屁股"};
+    private String[] dishesArray = {"鱼粉","鸡腿","鸡翅","鸡胸","红烧猪肘套餐"};
     /* 初始值可删 */
-    private String[] canteensArray = {"紫荆","景园","玫瑰","玫瑰","玫瑰"};
+    private String[] canteensArray = {"京元","景园","丁香","朝阳","玫瑰"};
     /* 初始值可删 */
     private String[] dishNumArray = {"dish1", "dish2", "dish3", "dish4", "dish5"};
     private double[] longitudeArray = {26.056722, 26.056722, 26.056722, 26.056722, 26.056722};

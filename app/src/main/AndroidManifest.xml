@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".navigation.LoginActivity"></activity>
-        <activity android:name=".sport.SportActivity">
+        <activity android:name=".sport.SportActivity"></activity>
+        <activity android:name=".navigation.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,5 +67,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Android O之后开启前台服务需要申请该权限 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Android Q之后，后台定位需要申请该权限 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
 </manifest>

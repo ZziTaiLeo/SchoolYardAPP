@@ -67,10 +67,11 @@
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="200dp"
             android:layout_below="@id/iv_destination"
             android:padding="3dp"
+            android:gravity="center"
             android:layout_marginTop="5dp"
             android:text="2019  4/19  0:10"
             android:textColor="#2979ff"

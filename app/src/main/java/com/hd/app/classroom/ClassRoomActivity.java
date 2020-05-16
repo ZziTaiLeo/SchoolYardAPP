@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -172,8 +172,8 @@ public class ClassRoomActivity extends AppCompatActivity {
     private void initValue() {
         //[1]找到控件
         lv = (ListView) findViewById(R.id.lv_classroom);
-        ImageView iv_back = (ImageView) findViewById(R.id.iv_back);
-        ImageView iv_search = (ImageView) findViewById(R.id.iv_search);
+        Button iv_back = (Button) findViewById(R.id.iv_back);
+        Button iv_search = (Button) findViewById(R.id.iv_search);
 
 
         //返回按钮响应

@@ -115,7 +115,7 @@ import static com.hd.app.navigation.MainActivity.nlocation;
 
 
 /**
- * Created by Only_ZziTai on 17/3/29.
+ * Created by Only_ZziTai on 20/3/29.
  */
 
 public class NavigationActivity extends BaseActivity implements OnGetGeoCoderResultListener,

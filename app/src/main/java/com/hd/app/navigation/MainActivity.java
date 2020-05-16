@@ -106,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
     private List<String> permissionList = new ArrayList<>();//申请的静态权限表
 
     public static double lastX = 0.0;
-    private double mCurrentLatitude;
-    private double mCurrentLongitude;
-    private MyLocationConfiguration.LocationMode mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
     /**
      * 当前的精度
      */
 
     private float mCurrentAccracy;
+    private double mCurrentLatitude;
+    private double mCurrentLongitude;
+    private MyLocationConfiguration.LocationMode mCurrentMode = MyLocationConfiguration.LocationMode.NORMAL;
     private int mCurrentDirection = 0;
 
     public static BDLocation nlocation = null;
@@ -526,13 +526,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     }
-//                    case R.id.start_running:
-////                    {
-////                        Intent intent = new Intent(MainActivity.this, TracingActivity.class);
-////                        ActivityCollector.finishAll();
-////                        startActivity(intent);
-////                        break;
-////                    }
                     case R.id.classroom_inquiries:
                     {
                         Intent intent = new Intent(MainActivity.this, ClassRoomActivity.class);

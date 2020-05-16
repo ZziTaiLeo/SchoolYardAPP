@@ -16,11 +16,7 @@
             android:icon="@drawable/classroom_icon"
             android:title="教室查询"
             />
-        <item
-            android:id="@+id/start_running"
-            android:icon="@drawable/start_runnnig"
-            android:title="跑步"
-            />
+
         <item
             android:id="@+id/suggestion_icon"
             android:icon="@drawable/suggestion_icon"

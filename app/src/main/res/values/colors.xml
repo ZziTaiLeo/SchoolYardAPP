@@ -65,4 +65,5 @@
     <color name="text_ture_color">#ffffff</color>
     <color name="text_false_color">#ffffff</color>
     <color name="home_line">#ffffff</color>
+    <color name="deep_blue">#3385FF</color>
 </resources>
