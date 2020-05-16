@@ -1,5 +1,6 @@
 package com.hd.app.classroom;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -172,8 +174,8 @@ public class ClassRoomActivity extends AppCompatActivity {
     private void initValue() {
         //[1]找到控件
         lv = (ListView) findViewById(R.id.lv_classroom);
-        ImageView iv_back = (ImageView) findViewById(R.id.iv_back);
-        ImageView iv_search = (ImageView) findViewById(R.id.iv_search);
+        Button iv_back =  findViewById(R.id.iv_back);
+        Button iv_search =  findViewById(R.id.iv_search);
 
 
         //返回按钮响应
@@ -181,7 +183,7 @@ public class ClassRoomActivity extends AppCompatActivity {
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
             }
         });
 

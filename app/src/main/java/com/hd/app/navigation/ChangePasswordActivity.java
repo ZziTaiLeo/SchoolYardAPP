@@ -66,9 +66,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
         {
             Toast.makeText(ChangePasswordActivity.this,"两次输入的新密码不同！",Toast.LENGTH_SHORT).show();
         }
-        else
+        else if (confirmNewPwdEdit.getText()!=newPasswordEdit.getText())
         {
+            Toast.makeText(ChangePasswordActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
             pa = new PasswordChange(userAccount,oldPasswordEdit.getText().toString(),newPasswordEdit.getText().toString());
+
             requestForChangePwd();
         }
     }

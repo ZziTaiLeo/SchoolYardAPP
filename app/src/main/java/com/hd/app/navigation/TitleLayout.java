@@ -21,6 +21,7 @@ public class TitleLayout extends LinearLayout {
             @Override
             public void onClick(View v) {
                 ((Activity)getContext()).finish();
+
             }
         });
 
