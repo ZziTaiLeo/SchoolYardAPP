@@ -1,5 +1,6 @@
 package com.hd.app.classroom;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -39,6 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.HEAD;
 
 public class ClassRoomActivity extends AppCompatActivity {
     private ListView lv;
@@ -172,8 +175,10 @@ public class ClassRoomActivity extends AppCompatActivity {
     private void initValue() {
         //[1]找到控件
         lv = (ListView) findViewById(R.id.lv_classroom);
+
         Button iv_back = (Button) findViewById(R.id.iv_back);
         Button iv_search = (Button) findViewById(R.id.iv_search);
+
 
 
         //返回按钮响应
@@ -181,7 +186,7 @@ public class ClassRoomActivity extends AppCompatActivity {
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
             }
         });
 
