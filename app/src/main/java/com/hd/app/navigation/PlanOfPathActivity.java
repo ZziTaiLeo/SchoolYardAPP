@@ -11,5 +11,6 @@ import com.hd.app.R;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_of_path);
+
     }
 }

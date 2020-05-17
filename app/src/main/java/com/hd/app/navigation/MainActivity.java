@@ -522,14 +522,13 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("mCurrentLatitude", mCurrentLatitude);
                         intent.putExtra("mCurrentLongitude:", mCurrentLongitude);
                         Log.d("MainActivity", "mCurrentLantitude:"+ mCurrentLatitude +","+"mCurrentLongitude"+mCurrentLongitude);
-                        ActivityCollector.finishAll();
+
                         startActivity(intent);
                         break;
                     }
                     case R.id.classroom_inquiries:
                     {
                         Intent intent = new Intent(MainActivity.this, ClassRoomActivity.class);
-                        ActivityCollector.finishAll();
                         startActivity(intent);
                         break;
                     }

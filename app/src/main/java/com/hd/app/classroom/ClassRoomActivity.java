@@ -176,19 +176,19 @@ public class ClassRoomActivity extends AppCompatActivity {
         //[1]找到控件
         lv = (ListView) findViewById(R.id.lv_classroom);
 
-        //Button iv_back = (Button) findViewById(R.id.bt_back);
-        Button iv_search = (Button) findViewById(R.id.iv_search);
+        Button iv_back = (Button) findViewById(R.id.bt_back);
+        Button iv_search = (Button) findViewById(R.id.bt_search);
 
 
 
         //返回按钮响应
         //TODO
-//        iv_back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //查询按钮响应事件
         iv_search.setOnClickListener(new View.OnClickListener() {
