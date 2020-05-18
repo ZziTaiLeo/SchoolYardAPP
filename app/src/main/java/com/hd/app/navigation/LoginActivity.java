@@ -100,6 +100,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("isVisitor","true");
+                User visitor  = new User();
+                visitor.setAccount("12345678");
+                visitor.setPassword("123456");
+                intent.putExtra("user_information", visitor);
                 startActivity(intent);
                 finish();
             }

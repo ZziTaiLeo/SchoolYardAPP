@@ -1,4 +1,5 @@
 package com.hd.app.recommend;
+
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -30,34 +31,37 @@ public class RecommendResultActivity extends BaseActivity implements View.OnClic
     private ShadowTransformerRecommend mCardShadowTransformerRecommend;
     private CardFragmentPagerAdapterRecommend cardFragmentPagerAdapterRecommend;
     private ShadowTransformerRecommend shadowTransformerRecommend;
-    private String TAG =  "RecommendResult";
-    private getDishBean mDishBean =new getDishBean();
+    private String TAG = "RecommendResult";
+    private getDishBean mDishBean = new getDishBean();
     private boolean mShowingFragments = false;
     /* 初始值可删 */
-    private String[] restaurantArray = new String [5];
+    private String[] restaurantArray = new String[5];
     /* 初始值可删 */
-    private String[] dishesArray = new String [5];
+    private String[] dishesArray = new String[5];
     /* 初始值可删 */
-    private String[] canteensArray = new String [5];
+    private String[] canteensArray = new String[5];
     /* 初始值可删 */
     private String[] dishNumArray = {"dish1", "dish2", "dish3", "dish4", "dish5"};
-    private double[] longitudeArray = new double [5];
-    private double[] latitudeArray = new double [5];
+    private double[] longitudeArray = new double[5];
+    private double[] latitudeArray = new double[5];
     /* 初始值可删 */
     /**
-     *  初始值可删 */
+     * 初始值可删
+     */
     private String demoDishes;
     private Button btGo;
     private Button btNextRest;
-    private int httpCode;
     private String forwordMessage;
     private int dishNum;
+
     private String setDemoRestaurant(String restaurant, String canteenName) {
-        return "向你推荐"+"\n"+"\n"+"\"" + canteenName + "\"" + restaurant+"\n" ;
+        return "向你推荐" + "\n" + "\n" + "\"" + canteenName + "\"" + restaurant + "\n";
     }
+
     private String setDemoDishes(String dishs) {
         return this.demoDishes = "《" + dishs + "》";
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,14 +71,14 @@ public class RecommendResultActivity extends BaseActivity implements View.OnClic
         /**
          读取上个intent的信息
          */
-        forwordMessage =getIntent().getStringExtra("DishBeanJson");
+        forwordMessage = getIntent().getStringExtra("DishBeanJson");
         dishNum = getIntent().getIntExtra("dishNum", 3);
-        Log.d(TAG,forwordMessage);
+        Log.d(TAG, forwordMessage);
         Gson gson = new Gson();
         mDishBean = gson.fromJson(forwordMessage, getDishBean.class);
         parseJSONWithJSONObject(forwordMessage);
-        for(int i =0;i<5;i++){
-            System.out.println("Restname : "+restaurantArray[i]);
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Restname : " + restaurantArray[i]);
         }
 
         for (int i = 0; i < dishNum; i++) {
@@ -84,44 +88,56 @@ public class RecommendResultActivity extends BaseActivity implements View.OnClic
         cardFragmentPagerAdapterRecommend = new CardFragmentPagerAdapterRecommend(getSupportFragmentManager(),
                 dpToPixels(2, this));
         mCardShadowTransformerRecommend = new ShadowTransformerRecommend(mViewPager, mCardAdapterRecommend);
+
         shadowTransformerRecommend = new ShadowTransformerRecommend(mViewPager, cardFragmentPagerAdapterRecommend);
+
         mViewPager.setAdapter(mCardAdapterRecommend);
+
         mViewPager.setPageTransformer(false, mCardShadowTransformerRecommend);
+
         mViewPager.setOffscreenPageLimit(2);
+
         btGo = (Button) findViewById(R.id.take_me_go);
+
         btNextRest = (Button) findViewById(R.id.next_restaurant);
+
         btNextRest.setOnClickListener(this);
+
         btGo.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
             case R.id.take_me_go: {
-                String item = Integer.toString(mViewPager.getCurrentItem());
+                int item = mViewPager.getCurrentItem();
                 int i = Integer.valueOf(item);
                 /**
                  * 需要更改活动名
                  */
                 Intent intent = new Intent(RecommendResultActivity.this, NavigationActivity.class);
-                intent.putExtra("action","1");
-                intent.putExtra("latitude",latitudeArray[i]);
-                intent.putExtra("logitude",longitudeArray[i]);
-                intent.putExtra("spotName",canteensArray[i]);
+                intent.putExtra("action", "1");
+                intent.putExtra("latitude", latitudeArray[i]);
+                intent.putExtra("logitude", longitudeArray[i]);
+                intent.putExtra("spotName", canteensArray[i]+"的"+dishesArray[i]);
+                Log.d(TAG, "终点经纬度"+longitudeArray[i]+","+latitudeArray[i]);
                 startActivity(intent);
                 break;
             }
             case R.id.next_restaurant: {
 
-                int number =5;
-                Log.d("NUMBER",Integer.toString(dishNum));
+                int number = dishNum;
+                Log.d("NUMBER", Integer.toString(dishNum));
                 int currentItem = mViewPager.getCurrentItem();
                 currentItem = currentItem + 1;
                 if (currentItem > number - 1) {
                     currentItem = currentItem % number;
-                    Log.d("currentNumber",Integer.toString(currentItem));
+                    Log.d("currentNumber", Integer.toString(currentItem));
                 }
+                Log.d("currentNumber",""+ currentItem);
                 mViewPager.setCurrentItem(currentItem);
+
             }
             default:
                 break;
@@ -134,6 +150,7 @@ public class RecommendResultActivity extends BaseActivity implements View.OnClic
         mCardShadowTransformerRecommend.enableScaling(b);
         shadowTransformerRecommend.enableScaling(b);
     }
+
     private void parseJSONWithJSONObject(String jsonData) {
         try {
             {

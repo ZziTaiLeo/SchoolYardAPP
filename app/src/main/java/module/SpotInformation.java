@@ -40,7 +40,7 @@ public class SpotInformation {
         {
             this.spotImageID[i]=arrry[i];
             String s = String.valueOf(arrry[i]);
-            Log.d("tttttt", s);
+            Log.d("SpotInformation", s);
         }
         this.spotInformation = sIn;
         this.spotLatitude = la;

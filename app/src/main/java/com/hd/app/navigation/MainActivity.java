@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
         userNumText=headerLayout.findViewById(R.id.user_num);
         pref = getSharedPreferences("user",Context.MODE_PRIVATE);
-        userAccount = pref.getString("account","");
+        userAccount = user.getUserName();
         userNumText.setText(userAccount);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
@@ -597,8 +597,6 @@ public class MainActivity extends AppCompatActivity {
                     String spotName = bundle.getString("spotname");
                     Intent intent = new Intent(MainActivity.this, SpotConcreteActivity.class);
                     intent.putExtra("spotname", spotName);//用户信息传入下一个界面
-                    //根据id的值向服务器请求对应的信息
-                    // requestSpotConcrete(id);
                     startActivity(intent);
                 }
 
